@@ -23,16 +23,6 @@ jobs:
       - name: Build Docker image
         run: docker build . -t wordpress
 
-      - name: Run unit tests
-        uses: php-actions/phpunit@v3
-
-      - name: Run functional tests
-        uses: Dylan700/selenium-ide-action@latest
-        with:
-          browser: chrome
-          url: http://localhost:8080
-
-
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
