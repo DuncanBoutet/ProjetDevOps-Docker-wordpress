@@ -22,7 +22,7 @@ RUN wget https://wordpress.org/latest.zip && \
   unzip latest.zip && \
   mv wordpress /var/www/html/ && \
   chown -R www-data:www-data /var/www/html/wordpress
-COPY images/conf/wp-config.php /var/www/html/wordpress/
+COPY conf/wp-config.php /var/www/html/wordpress/
 RUN chmod -R 755 /var/www/html/wordpress
 
 # Configurez Apache pour servir votre site WordPress
