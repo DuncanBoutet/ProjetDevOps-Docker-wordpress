@@ -24,19 +24,14 @@ jobs:
         run: docker build . -t wordpress
 
       - name: Run unit tests
-        uses: phpunit/phpunit-action@v3
+        uses: php-actions/phpunit@v3
 
       - name: Run functional tests
-        uses: selenium/selenium-action@v3
+        uses: Dylan700/selenium-ide-action@latest
         with:
           browser: chrome
           url: http://localhost:8080
 
-      - name: Deploy to staging environment
-        uses: docker/deploy-action@v3
-        with:
-          image: wordpress
-          server: my-staging-server
 
   push_to_registry:
     name: Push Docker image to Docker Hub
