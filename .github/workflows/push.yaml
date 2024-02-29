@@ -13,21 +13,31 @@ env:
   IMAGE_NAME: boudun/wordpress
 
 jobs:
-
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker-compose build --no-cache --force-rm
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Test the Docker image
-        run: docker-compose up -d
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build . -t wordpress
+
+      - name: Run unit tests
+        uses: phpunit/phpunit-action@v3
+
+      - name: Run functional tests
+        uses: selenium/selenium-action@v3
+        with:
+          browser: chrome
+          url: http://localhost:8080
+
+      - name: Deploy to staging environment
+        uses: docker/deploy-action@v3
+        with:
+          image: wordpress
+          server: my-staging-server
+
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
