@@ -18,9 +18,9 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get upgrade -y
 
 # Téléchargez, décompressez et installez WordPress
-RUN wget https://wordpress.org/latest.zip \
-  unzip latest.zip \
-  mv wordpress /var/www/html/ \
+RUN wget https://wordpress.org/latest.zip && \
+  unzip latest.zip && \
+  mv wordpress /var/www/html/ && \
   chown -R www-data:www-data /var/www/html/wordpress
 COPY images/conf/wp-config.php /var/www/html/wordpress/
 RUN chmod -R 755 /var/www/html/wordpress
