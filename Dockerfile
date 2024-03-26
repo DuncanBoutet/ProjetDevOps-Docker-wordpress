@@ -23,8 +23,8 @@ RUN wget https://wordpress.org/latest.zip && \
   mv wordpress /var/www/html/ && \
   chown -R www-data:www-data /var/www/html/wordpress
 COPY conf/wp-config.php /var/www/html/wordpress/
-COPY conf/000-default.conf /etc/nginx/sites-available/
-RUN ln -s /etc/nginx/sites-available/000-default.conf /etc/nginx/sites-enabled/
+COPY conf/000-default.conf /etc/apache2/sites-available/
+RUN ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN chmod -R 755 /var/www/html/wordpress
 
 WORKDIR /var/www/html/wordpress
