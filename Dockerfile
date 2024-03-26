@@ -23,12 +23,11 @@ RUN wget https://wordpress.org/latest.zip && \
   mv wordpress /var/www/html/ && \
   chown -R www-data:www-data /var/www/html/wordpress
 COPY conf/wp-config.php /var/www/html/wordpress/
+COPY conf/000-default.conf /etc/apache2/sites-available/
 RUN chmod -R 755 /var/www/html/wordpress
 
-# Configurez Apache pour servir votre site WordPress
-RUN echo '\n<Directory /var/www/html/wordpress/>\n\
-    AllowOverride All\n\
-</Directory>\n' >> /etc/apache2/sites-available/000-default.conf
+WORKDIR /var/www/html/wordpress
+
 RUN a2enmod rewrite
 
 # Exposez le port 80 pour le serveur web
